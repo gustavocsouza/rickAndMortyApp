@@ -7,6 +7,7 @@ import {
   HomeContainer, ListCardsContainer, InputContainer, PaginationContainer,
 } from './style';
 import Loader from '../../components/Loader';
+import CharacterModal from '../../components/CharacterModal';
 
 export default function Home() {
   const [characters, setCharacters] = useState([]);
@@ -14,6 +15,13 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [info, setInfo] = useState(null);
   const [page, setPage] = useState(1);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [characterId, setCharacterId] = useState(10);
+
+  const openModal = (id) => {
+    setIsOpenModal(true);
+    setCharacterId(id);
+  };
 
   const loadCharacters = useCallback(async () => {
     try {
@@ -42,17 +50,23 @@ export default function Home() {
       </InputContainer>
       <ListCardsContainer>
         {characters?.map((character) => (
-          <Link key={character.id} to={`/character/${character.id}`}>
-            <Card
-              image={character.image}
-              name={character.name}
-              status={character.status}
-              species={character.species}
-              location={character.location.name}
-            />
-          </Link>
+          <>
+            <Link key={character.id} to={`/character/${character.id}`}>
+              <Card
+                image={character.image}
+                name={character.name}
+                status={character.status}
+                species={character.species}
+                location={character.location.name}
+                onClick={openModal}
+              />
+            </Link>
+            <button type="button" onClick={() => openModal(character.id)}>Clica</button>
+          </>
         ))}
       </ListCardsContainer>
+      <CharacterModal isOpenModal={isOpenModal} characterId={characterId} />
+
       <PaginationContainer page={page}>
 
         {page !== 1 && (

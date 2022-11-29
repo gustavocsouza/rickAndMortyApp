@@ -16,17 +16,19 @@ export const CardContainer = styled.div`
   }
   .character-img {
     width: 100%;
+    transition: transform 0.2s ease-in;
     border-radius: 16px;
   }
 
   &:hover{
-    transform: scale(1.1);
+    transform: scale(1.05);
     cursor: pointer;
 
-    h4 {
-      transform: scale(1.2)
+    .character-img {
+      transform: scale(1.07)
     }
   }
+
   .details {
     color: ${({ theme }) => theme.colors.gray[100]};
     margin: 4px 8px;

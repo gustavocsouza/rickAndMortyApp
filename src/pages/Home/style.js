@@ -19,6 +19,11 @@ export const ListCardsContainer = styled.div`
   a {
     text-decoration: none;
   }
+
+  button {
+    background: transparent;
+    border: none;
+  }
 `;
 
 export const PaginationContainer = styled.div`

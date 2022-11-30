@@ -4,25 +4,29 @@ import { useEffect, useState } from 'react';
 import CharacterService from '../../services/CharacterService';
 import heart from '../../assets/images/heart.svg';
 import { CharacterModalContainer } from './style';
+import Loader from '../Loader';
 
 export default function CharacterModal({ isOpenModal, characterId, setIsOpenModal }) {
   const [character, setCharacter] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     async function loadContact() {
       const getCharacter = await CharacterService.getById(characterId);
       // setEpisodes(getCharacter.episode);
       setCharacter(getCharacter);
+      setIsLoading(false);
     }
 
     loadContact();
-  }, []);
+  }, [characterId]);
   const customStyles = {
     content: {
       backgroundColor: '#ececec',
       with: '90%',
       maxWidth: 500,
       padding: 10,
-      borderRadius: 5,
+      borderRadius: '8rem',
     },
     overlay: {
       position: 'fixed',
@@ -33,26 +37,38 @@ export default function CharacterModal({ isOpenModal, characterId, setIsOpenModa
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: 'rgba(51, 70, 70, .4) ',
     },
   };
 
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+
+  if (isLoading) {
+    return (<Loader />);
+  }
   return (
     <ReactModal
       isOpen={isOpenModal}
-      onRequestClose={setIsOpenModal}
+      onRequestClose={closeModal}
       contentLabel="teste"
       overlayClassName="modal-overlay"
       className="modal-content"
       style={customStyles}
     >
       <CharacterModalContainer>
-        <img src={character?.image} alt="" />
-        <div className="details">
+
+        <img className="character-img" src={character?.image} alt="" />
+        <div className="name-status-container">
           <h3>{character?.name}</h3>
           <div className="status">
             <img src={heart} alt="" />
             <span>{character?.status}</span>
           </div>
+        </div>
+
+        <div className="character-details">
           <p>
             <strong>Species: </strong>
             {character?.species}
@@ -70,6 +86,7 @@ export default function CharacterModal({ isOpenModal, characterId, setIsOpenModa
             {character?.origin.name}
           </p>
         </div>
+
         <button type="button" onClick={() => setIsOpenModal(false)}>Close</button>
       </CharacterModalContainer>
     </ReactModal>

@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import CharacterService from '../../services/CharacterService';
 import Card from '../../components/Card';
 import { Input } from '../../components/Input';
@@ -20,6 +19,7 @@ export default function Home() {
 
   const openModal = (id) => {
     setIsOpenModal(true);
+    console.log(id);
     setCharacterId(id);
   };
 
@@ -50,25 +50,28 @@ export default function Home() {
       </InputContainer>
       <ListCardsContainer>
         {characters?.map((character) => (
-          <>
-            <Link key={character.id} to={`/character/${character.id}`}>
-              <Card
-                image={character.image}
-                name={character.name}
-                status={character.status}
-                species={character.species}
-                location={character.location.name}
-                onClick={openModal}
-              />
-            </Link>
-            <button type="button" onClick={() => openModal(character.id)}>Clica</button>
-          </>
+          <button
+            type="button"
+            onClick={() => openModal(character.id)}
+          >
+            <Card
+              image={character.image}
+              name={character.name}
+              status={character.status}
+              species={character.species}
+              location={character.location.name}
+              onClick={() => console.log('OPAAAAAAAA')}
+            />
+          </button>
         ))}
       </ListCardsContainer>
-      <CharacterModal isOpenModal={isOpenModal} characterId={characterId} />
+      <CharacterModal
+        isOpenModal={isOpenModal}
+        characterId={characterId}
+        setIsOpenModal={setIsOpenModal}
+      />
 
       <PaginationContainer page={page}>
-
         {page !== 1 && (
         <button type="button" onClick={() => setPage(page - 1)}>Anterior</button>
         )}

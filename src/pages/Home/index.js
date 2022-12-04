@@ -3,7 +3,7 @@ import CharacterService from '../../services/CharacterService';
 import Card from '../../components/Card';
 import { Input } from '../../components/Input';
 import {
-  HomeContainer, ListCardsContainer, InputContainer, PaginationContainer,
+  HomeContainer, ListCardsContainer, InputContainer, PaginationContainer, NoResultsContainer,
 } from './style';
 import Loader from '../../components/Loader';
 import CharacterModal from '../../components/CharacterModal';
@@ -19,12 +19,12 @@ export default function Home() {
 
   const openModal = (id) => {
     setIsOpenModal(true);
-    console.log(id);
     setCharacterId(id);
   };
 
   const loadCharacters = useCallback(async () => {
     try {
+      setIsLoading(true);
       const listCharacters = await CharacterService.getAll(page, searchTerm);
       setInfo(listCharacters.info);
       setCharacters(listCharacters.results);
@@ -40,45 +40,59 @@ export default function Home() {
 
   function handleSearchChange(event) {
     setSearchTerm(event.target.value);
+    setPage(1);
   }
 
   return (
     <HomeContainer>
-      <Loader isLoading={isLoading} />
       <InputContainer>
-        <Input type="text" placeholder="Pesquise pelo nome..." onChange={handleSearchChange} />
+        <Input type="text" placeholder="Search for the multiverse" onChange={handleSearchChange} />
       </InputContainer>
-      <ListCardsContainer>
-        {characters?.map((character) => (
-          <button
-            type="button"
-            onClick={() => openModal(character.id)}
-          >
-            <Card
-              image={character.image}
-              name={character.name}
-              status={character.status}
-              species={character.species}
-              location={character.location.name}
-              onClick={() => console.log('OPAAAAAAAA')}
-            />
-          </button>
-        ))}
-      </ListCardsContainer>
-      <CharacterModal
-        isOpenModal={isOpenModal}
-        characterId={characterId}
-        setIsOpenModal={setIsOpenModal}
-      />
+      <Loader isLoading={isLoading} />
+      {!isLoading
+      && (
+        <>
+          <ListCardsContainer>
+            {
+            !characters
+              && (
+                <NoResultsContainer>
+                  <p>No results</p>
+                </NoResultsContainer>
+              )
+            }
+            {characters?.map((character) => (
+              <button
+                type="button"
+                key={character.id}
+                onClick={() => openModal(character.id)}
+              >
+                <Card
+                  image={character.image}
+                  name={character.name}
+                  status={character.status}
+                  species={character.species}
+                  location={character.location.name}
+                />
+              </button>
+            ))}
+          </ListCardsContainer>
+          <CharacterModal
+            isOpenModal={isOpenModal}
+            characterId={characterId}
+            setIsOpenModal={setIsOpenModal}
+          />
 
-      <PaginationContainer page={page}>
-        {page !== 1 && (
-        <button type="button" onClick={() => setPage(page - 1)}>Anterior</button>
-        )}
-        {page !== info?.pages && (
-        <button type="button" onClick={() => setPage(page + 1)}>Próxima</button>
-        )}
-      </PaginationContainer>
+          <PaginationContainer page={page}>
+            {page !== 1 && characters && (
+            <button type="button" onClick={() => setPage(page - 1)}>Previous</button>
+            )}
+            {page !== info?.pages && characters && (
+            <button type="button" onClick={() => setPage(page + 1)}>Next</button>
+            )}
+          </PaginationContainer>
+        </>
+      )}
     </HomeContainer>
   );
 }

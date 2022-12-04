@@ -12,6 +12,7 @@ export default function CharacterModal({ isOpenModal, characterId, setIsOpenModa
 
   useEffect(() => {
     async function loadContact() {
+      setIsLoading(true);
       const getCharacter = await CharacterService.getById(characterId);
       // setEpisodes(getCharacter.episode);
       setCharacter(getCharacter);
@@ -96,5 +97,5 @@ export default function CharacterModal({ isOpenModal, characterId, setIsOpenModa
 CharacterModal.propTypes = {
   isOpenModal: PropTypes.bool.isRequired,
   characterId: PropTypes.number.isRequired,
-  setIsOpenModal: PropTypes.bool.isRequired,
+  setIsOpenModal: PropTypes.func.isRequired,
 };

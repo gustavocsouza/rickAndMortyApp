@@ -10,10 +10,10 @@ export const CardContainer = styled.div`
   transition: transform 0.2s ease-in;
   text-align: center;
 
-
   h4 {
     transition: transform 0.2s ease-in;
   }
+
   .character-img {
     width: 100%;
     transition: transform 0.2s ease-in;
@@ -32,21 +32,24 @@ export const CardContainer = styled.div`
   .details {
     color: ${({ theme }) => theme.colors.gray[100]};
     margin: 4px 8px;
+
     .status{
       display:flex;
       font-size: 12px;
       display: flex;
       justify-content: center;
+
       span {
         text-transform: capitalize;
       }
-      img{
+
+      img {
         width: 15px;
         margin-right: 4px;
       }
     }
 
-    p{
+    p {
       font-size: 14px;
     }
   }

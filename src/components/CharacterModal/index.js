@@ -21,13 +21,13 @@ export default function CharacterModal({ isOpenModal, characterId, setIsOpenModa
 
     loadContact();
   }, [characterId]);
+
+  //style for react modal component
   const customStyles = {
     content: {
       backgroundColor: '#ececec',
-      with: '90%',
-      maxWidth: 500,
-      padding: 10,
-      borderRadius: '8rem',
+      maxWidth: 900,
+      borderRadius: '4rem',
     },
     overlay: {
       position: 'fixed',
@@ -61,34 +61,36 @@ export default function CharacterModal({ isOpenModal, characterId, setIsOpenModa
       <CharacterModalContainer>
 
         <img className="character-img" src={character?.image} alt="" />
-        <div className="name-status-container">
-          <h3>{character?.name}</h3>
-          <div className="status">
-            <img src={heart} alt="" />
-            <span>{character?.status}</span>
+        <div className="character-info">
+          <div className="name-status-container">
+            <h3>{character?.name}</h3>
+            <div className="status">
+              <img src={heart} alt="" />
+              <span>{character?.status}</span>
+            </div>
+          </div>
+
+          <div className="character-details">
+            <p>
+              <strong>Species: </strong>
+              {character?.species}
+            </p>
+            <p>
+              <strong>Gender: </strong>
+              {character?.gender}
+            </p>
+            <p>
+              <strong>Location: </strong>
+              {character?.location.name}
+            </p>
+            <p>
+              <strong>Origin: </strong>
+              {character?.origin.name}
+            </p>
           </div>
         </div>
 
-        <div className="character-details">
-          <p>
-            <strong>Species: </strong>
-            {character?.species}
-          </p>
-          <p>
-            <strong>Gender: </strong>
-            {character?.gender}
-          </p>
-          <p>
-            <strong>Location: </strong>
-            {character?.location.name}
-          </p>
-          <p>
-            <strong>Origin: </strong>
-            {character?.origin.name}
-          </p>
-        </div>
-
-        <button type="button" onClick={() => setIsOpenModal(false)}>Close</button>
+        <button type="button" onClick={() => setIsOpenModal(false)}>✖</button>
       </CharacterModalContainer>
     </ReactModal>
   );

@@ -22,7 +22,6 @@ export default function CharacterModal({ isOpenModal, characterId, setIsOpenModa
     loadContact();
   }, [characterId]);
 
-  //style for react modal component
   const customStyles = {
     content: {
       backgroundColor: '#ececec',

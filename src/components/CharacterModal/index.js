@@ -27,6 +27,7 @@ export default function CharacterModal({ isOpenModal, characterId, setIsOpenModa
       backgroundColor: '#ececec',
       maxWidth: 900,
       borderRadius: '4rem',
+      boxShadow: 'rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px',
     },
     overlay: {
       position: 'fixed',
@@ -37,7 +38,6 @@ export default function CharacterModal({ isOpenModal, characterId, setIsOpenModa
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(51, 70, 70, .4) ',
     },
   };
 

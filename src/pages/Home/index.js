@@ -39,8 +39,11 @@ export default function Home() {
   }, [searchTerm, page]);
 
   function handleSearchChange(event) {
-    setSearchTerm(event.target.value);
-    setPage(1);
+    const timeOut = setTimeout(() => {
+      setSearchTerm(event.target.value);
+      setPage(1);
+    }, 500);
+    return () => clearTimeout(timeOut);
   }
 
   return (

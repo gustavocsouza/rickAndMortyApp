@@ -22,6 +22,7 @@ export const CharacterModalContainer = styled.div`
   .status {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
   }
 
   .character-details {

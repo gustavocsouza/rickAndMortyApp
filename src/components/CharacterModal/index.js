@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import CharacterService from '../../services/CharacterService';
 import heart from '../../assets/images/heart.svg';
+import skull from '../../assets/images/skull.svg';
+import unknown from '../../assets/images/unknownBlack.svg';
 import { CharacterModalContainer } from './style';
 import Loader from '../Loader';
 
@@ -64,7 +66,7 @@ export default function CharacterModal({ isOpenModal, characterId, setIsOpenModa
           <div className="name-status-container">
             <h3>{character?.name}</h3>
             <div className="status">
-              <img src={heart} alt="" />
+              <img src={character?.status === 'Alive' ? heart : (character?.status === 'Dead') ? skull : unknown} alt="" />
               <span>{character?.status}</span>
             </div>
           </div>

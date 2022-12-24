@@ -46,7 +46,7 @@ export const Overlay = styled.div`
 
   .loader {
   color: ${({ theme }) => theme.colors.purple.main};
-  font-size: 90px;
+  font-size: 50px;
   text-indent: -9999em;
   overflow: hidden;
   width: 1em;

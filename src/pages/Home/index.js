@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <HomeContainer>
       <InputContainer>
-        <Input type="text" placeholder="Search for the multiverse" onChange={handleSearchChange} />
+        <Input type="text" placeholder="Search for the multiverse..." onChange={handleSearchChange} />
       </InputContainer>
       <Loader isLoading={isLoading} />
       {!isLoading

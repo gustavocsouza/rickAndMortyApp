@@ -8,4 +8,14 @@ export const HeaderContainer = styled.header`
   flex-direction: column;
   align-items: center;
   padding: 24px;
+
+  img {
+    width: 40%;
+  }
+
+  @media (max-width: 768px) {
+    img {
+      width: 70%;
+    }
+  }
 `;

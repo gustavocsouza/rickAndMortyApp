@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const CardContainer = styled.div`
   background: ${({ theme }) => theme.colors.blue.dark};
-  width: 180px;
-  height: 350px;
+  width: 150px;
+  height: 320px;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   margin: 0 8px 16px;
